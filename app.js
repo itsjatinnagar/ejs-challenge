@@ -50,7 +50,7 @@ app.get("/posts/:title", function (req, res) {
             lodash.lowerCase(req.params.title) === lodash.lowerCase(post.title)
     );
     if (output !== undefined) {
-        console.log("Match Found");
+        res.render("post", { post: output });
     }
 });
 
