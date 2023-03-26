@@ -44,7 +44,10 @@ app.post("/compose", function (req, res) {
 });
 
 app.get("/posts/:title", function (req, res) {
-    console.log(req.params.title);
+    const output = POSTS.find((post) => req.params.title === post.title);
+    if (output !== undefined) {
+        console.log("Match Found");
+    }
 });
 
 app.listen(3000, function () {
