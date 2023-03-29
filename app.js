@@ -29,8 +29,9 @@ const Post = mongoose.model(
     })
 );
 
-app.get("/", function (req, res) {
-    res.render("home", { content: homeStartingContent, posts: POSTS });
+app.get("/", async function (req, res) {
+    const posts = await Post.find();
+    res.render("home", { content: homeStartingContent, posts: posts });
 });
 
 app.get("/about", function (req, res) {
