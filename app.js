@@ -10,8 +10,6 @@ const aboutContent =
 const contactContent =
     "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
-const POSTS = Array();
-
 const app = express();
 
 app.set("view engine", "ejs");
@@ -55,12 +53,9 @@ app.post("/compose", function (req, res) {
     res.redirect("/");
 });
 
-app.get("/posts/:title", function (req, res) {
-    const output = POSTS.find(
-        (post) =>
-            lodash.lowerCase(req.params.title) === lodash.lowerCase(post.title)
-    );
-    if (output !== undefined) {
+app.get("/posts/:id", async function (req, res) {
+    const output = await Post.findById(req.params.id);
+    if (output !== null) {
         res.render("post", { post: output });
     }
 });
